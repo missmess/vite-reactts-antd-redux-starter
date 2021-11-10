@@ -7,7 +7,7 @@
 - React, use Hooks Api
 - TypeScript
 - Antd
-- Redux
+- Redux, use redux toolkit
 - React Router
 - Eslint
 - Prettier

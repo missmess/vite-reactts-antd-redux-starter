@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserInfo } from '@/types';
 import type { RootState } from '..';
 
 export const userSlice = createSlice({
   name: 'user',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState: {
-    userinfo: null as any | null,
+    userinfo: null as UserInfo | null,
   },
   reducers: {
-    setUser: (state, action: PayloadAction<any | null>) => {
+    setUser: (state, action: PayloadAction<UserInfo | null>) => {
       state.userinfo = action.payload;
     },
   },
