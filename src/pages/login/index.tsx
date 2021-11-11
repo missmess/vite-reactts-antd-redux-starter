@@ -18,8 +18,14 @@ export default () => {
   };
 
   return (
-    <div style={{ padding: '30px 40px' }}>
-      <Form<FormObj> name='login' onFinish={onFinish} autoComplete='off'>
+    <div>
+      <Form<FormObj>
+        name='login'
+        onFinish={onFinish}
+        autoComplete='off'
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 16 }}
+      >
         <Form.Item
           label='Username'
           name='username'
