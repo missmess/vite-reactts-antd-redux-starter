@@ -2,7 +2,7 @@ import { Menu, MenuTheme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { RouteMenu } from '@/types';
-import { useRoutesByLocation } from '@/hooks/useRouteMenu';
+import { useMenuVisibleRoutes, useRoutesByLocation } from '@/hooks/useRouteMenu';
 
 const { SubMenu } = Menu;
 
@@ -16,9 +16,9 @@ const getMenuItem = (menu: RouteMenu) => (
 /** 递归生成菜单列表jsx */
 const getMenuItemList = (menus: RouteMenu[]) =>
   menus.map((menu) =>
-    menu.routes?.length ? (
+    menu.visibleChild?.length ? (
       <SubMenu key={menu.path} title={menu.name} icon={menu.icon}>
-        {getMenuItemList(menu.routes)}
+        {getMenuItemList(menu.visibleChild)}
       </SubMenu>
     ) : (
       getMenuItem(menu)
@@ -32,18 +32,29 @@ const MenuList: React.FC<{ menus: RouteMenu[]; theme: MenuTheme }> = ({ menus, t
   useEffect(() => {
     setOpenKeys(parentRoutes.map((v) => v.path));
   }, [parentRoutes]);
-  const location = useLocation();
 
+  const location = useLocation();
+  let selectPath = location.pathname;
+  // 查找第一个隐藏菜单项
+  const firstHideMenu = parentRoutes.findIndex((v) => v.hideInMenu);
+  // 如果有隐藏菜单，它的前一个父级应该被选中
+  if (firstHideMenu !== -1 && firstHideMenu > 0) {
+    selectPath = parentRoutes[firstHideMenu - 1].path;
+  }
+  // console.log(`当前路径为${location.pathname}, 需选中的路径为${selectPath}`);
+
+  // 仅渲染可见的菜单项
+  const visibles = useMenuVisibleRoutes(menus);
   return (
     <Menu
       mode='inline'
       theme={theme}
-      selectedKeys={[location.pathname]}
+      selectedKeys={[selectPath]}
       openKeys={openKeys}
       onOpenChange={setOpenKeys}
       style={{ height: '100%', borderRight: 0 }}
     >
-      {getMenuItemList(menus)}
+      {getMenuItemList(visibles)}
     </Menu>
   );
 };

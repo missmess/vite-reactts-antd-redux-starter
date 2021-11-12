@@ -6,6 +6,8 @@ export type RouteMenu = {
   component?: React.ExoticComponent;
   icon?: ReactNode | string;
   routes?: RouteMenu[];
+  hideInMenu?: boolean;
+  visibleChild?: RouteMenu[];
 };
 
 export type UserInfo = {

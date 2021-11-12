@@ -5,9 +5,11 @@ import {
   CalendarOutlined,
   CloudUploadOutlined,
   DeliveredProcedureOutlined,
+  HeatMapOutlined,
   IeOutlined,
   QqOutlined,
   UserOutlined,
+  WechatOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 import { RouteMenu } from '@/types';
@@ -41,6 +43,15 @@ export default [
             name: '销售冠军',
             icon: <QqOutlined />,
             component: React.lazy(() => import('../404')),
+            routes: [
+              {
+                path: '/car/sale/win/detail',
+                hideInMenu: true,
+                name: '详情',
+                icon: <WechatOutlined />,
+                component: React.lazy(() => import('./car/sale/detail')),
+              },
+            ],
           },
         ],
       },
@@ -70,5 +81,12 @@ export default [
         component: React.lazy(() => import('../404')),
       },
     ],
+  },
+  {
+    path: '/help',
+    name: '帮助',
+    hideInMenu: true,
+    icon: <HeatMapOutlined />,
+    component: React.lazy(() => import('../404')),
   },
 ] as RouteMenu[];
