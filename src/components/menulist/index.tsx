@@ -33,12 +33,14 @@ const MenuList: React.FC<{ menus: RouteMenu[]; theme: MenuTheme; collapse: boole
 }) => {
   const parentRoutes = useRoutesByLocation(menus);
   const [openKeys, setOpenKeys] = useState([] as string[]);
+  // //调试openKeys
   // const [openKeys, setOpenKeys2] = useState([] as string[]);
   // const setOpenKeys = (k: string[]) => {
   //   console.log('设置openKeys', k);
   //   setOpenKeys2(k);
   // };
   useEffect(() => {
+    // 只有在sider打开时，手动控制openKeys（sider关闭时，Menu自己接管了状态）
     if (!collapse) {
       // 默认打开所有父级
       let parents = parentRoutes.slice(0, parentRoutes.length - 1);
