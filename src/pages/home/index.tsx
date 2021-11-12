@@ -1,6 +1,6 @@
 import { Layout, Image, MenuTheme, Card } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Logo from '@/assets/img/logo.svg';
 import UserLogin from '@/components/userlogin';
 import MenuList from '@/components/menulist';
@@ -22,6 +22,8 @@ export default () => {
       history.push(visitables[0]?.path || '/');
     }
   });
+  // 菜单收缩状态
+  const [menuCollapse, setMenuCollapse] = useState(false);
   return (
     <Layout className='home-main'>
       <Header className='home-header'>
@@ -30,8 +32,15 @@ export default () => {
         <UserLogin />
       </Header>
       <Layout>
-        <Sider width={200} breakpoint='md' collapsible theme={menuTheme} collapsedWidth={48}>
-          <MenuList menus={menus} theme={menuTheme} />
+        <Sider
+          width={200}
+          breakpoint='md'
+          collapsible
+          onCollapse={setMenuCollapse}
+          theme={menuTheme}
+          collapsedWidth={48}
+        >
+          <MenuList menus={menus} theme={menuTheme} collapse={menuCollapse} />
         </Sider>
         <Content>
           <Breadcrumbs menus={menus} />
