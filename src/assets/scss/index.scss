@@ -4,6 +4,11 @@ html {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 30px 40px;
+  padding: 0;
   margin: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }

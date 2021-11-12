@@ -1,57 +1,30 @@
-import { useHistory } from 'react-router-dom';
-import { Button, Col, Divider, Row, Spin } from 'antd';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/hooks/useStoreApi';
-import { selectUserInfo, setUser } from '@/store/user';
-import { getItems } from '@/services';
-import { Item } from '@/types';
+import { Layout, Image, MenuTheme } from 'antd';
+import Logo from '@/assets/img/logo.svg';
+import UserLogin from '@/components/userlogin';
+import MenuList from '@/components/menulist';
+import RouteList from '@/components/routelist';
+import menus from './menus';
 import './index.scss';
 
+const { Header, Content, Sider } = Layout;
+const menuTheme: MenuTheme = 'light';
+
 export default () => {
-  const userInfo = useAppSelector(selectUserInfo);
-  const history = useHistory();
-
-  const [data, setData] = useState([] as Item[]);
-  useEffect(() => {
-    getItems().then((value) => {
-      setData(value);
-    });
-  }, []);
-
-  const dispatch = useAppDispatch();
-  const logout = () => {
-    dispatch(setUser(null));
-  };
-
-  useEffect(() => {
-    if (userInfo == null) {
-      setTimeout(() => {
-        history.replace('/login');
-      }, 1000);
-    }
-  });
-
-  return userInfo ? (
-    <div className='main'>
-      <h2 className='head'>
-        <span>Welcome, {userInfo.nickname}!</span>
-        <Button onClick={logout}>logout</Button>
-      </h2>
-      {data.length ? (
-        data.map((v) => (
-          <section key={v.id}>
-            <Divider />
-            <Row>
-              <Col span={8}>{v.title}</Col>
-              <Col span={12}>{v.body}</Col>
-            </Row>
-          </section>
-        ))
-      ) : (
-        <Spin />
-      )}
-    </div>
-  ) : (
-    <div className='main'>Unauthorized! Login Page redirecting...</div>
+  return (
+    <Layout className='home-main'>
+      <Header className='home-header'>
+        <Image src={Logo} preview={false} width={60} />
+        <span className='home-title'>理想汽车</span>
+        <UserLogin />
+      </Header>
+      <Layout>
+        <Sider width={200} breakpoint='md' collapsible theme={menuTheme} collapsedWidth={48}>
+          <MenuList menus={menus} theme={menuTheme} />
+        </Sider>
+        <Content>
+          <RouteList menus={menus} />
+        </Content>
+      </Layout>
+    </Layout>
   );
 };

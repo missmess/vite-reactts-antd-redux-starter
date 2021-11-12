@@ -18,7 +18,7 @@ export default () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: '30px 40px' }}>
       <Form<FormObj>
         name='login'
         onFinish={onFinish}

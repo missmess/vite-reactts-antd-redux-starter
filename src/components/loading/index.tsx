@@ -1,3 +1,5 @@
 import { Skeleton } from 'antd';
 
-export default () => <Skeleton active />;
+const Loading = () => <Skeleton active />;
+
+export default Loading;

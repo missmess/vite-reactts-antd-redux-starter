@@ -1,12 +1,32 @@
-.main {
-  > * + * {
-    margin-top: 20px;
-  }
+.home-main {
+  width: 100%;
+  height: 100%;
 
-  .head {
-    text-align: end;
-    > * + * {
-      margin-left: 15px;
+  .home-header {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    .home-title {
+      flex: auto;
+      color: white;
+      margin-left: 10px;
+      font-size: 20px;
+      height: 100%;
+      font-weight: 700;
+    }
+
+    .userinfo-zone {
+      cursor: pointer;
+      height: 100%;
+
+      .username {
+        color: white;
+        font-size: 14px;
+        height: 100%;
+        margin-left: 10px;
+        margin-right: 5px;
+      }
     }
   }
 }
