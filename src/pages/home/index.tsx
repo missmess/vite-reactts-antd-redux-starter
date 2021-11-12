@@ -23,7 +23,7 @@ export default () => {
   return (
     <Layout className='home-main'>
       <Header className='home-header'>
-        <Image src={Logo} preview={false} width={60} />
+        <Image src={Logo} preview={false} width={54} />
         <span className='home-title'>理想汽车</span>
         <UserLogin />
       </Header>
