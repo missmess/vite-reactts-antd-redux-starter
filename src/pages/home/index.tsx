@@ -8,6 +8,7 @@ import RouteList from '@/components/routelist';
 import menus from './menus';
 import './index.scss';
 import Breadcrumbs from '@/components/breadcrumb';
+import { useFirstAvailRoute } from '@/hooks/useRouteMenu';
 
 const { Header, Content, Sider } = Layout;
 const menuTheme: MenuTheme = 'light';
@@ -15,9 +16,10 @@ const menuTheme: MenuTheme = 'light';
 export default () => {
   const location = useLocation();
   const history = useHistory();
+  const route0 = useFirstAvailRoute(menus);
   useEffect(() => {
     if (location.pathname === '/') {
-      history.push(menus[0].path || '/');
+      history.push(route0?.path || '/');
     }
   });
   return (

@@ -2,7 +2,7 @@ import { Menu, MenuTheme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { RouteMenu } from '@/types';
-import useRoutesByLocation from '@/hooks/useRouteMenu';
+import { useRoutesByLocation } from '@/hooks/useRouteMenu';
 
 const { SubMenu } = Menu;
 

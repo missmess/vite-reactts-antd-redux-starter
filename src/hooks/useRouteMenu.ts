@@ -7,7 +7,7 @@ import { RouteMenu } from '@/types';
  * @param routes 树状路由菜单列表
  * @returns 当前location的父级
  */
-const useRoutesByLocation = (routes: RouteMenu[]) => {
+export const useRoutesByLocation = (routes: RouteMenu[]) => {
   /**
    * 先序遍历查找某一菜单项，直到菜单项path等于输入的path，并将它和它的父级们存入parentRoutes中
    */
@@ -39,4 +39,21 @@ const useRoutesByLocation = (routes: RouteMenu[]) => {
   }, [location]);
 };
 
-export default useRoutesByLocation;
+/** 从route集合树中先序遍历，查找第一个包含组件的 */
+const findAvailRoute: (route: RouteMenu) => RouteMenu | null = (route) => {
+  if (route.component) return route;
+  let r: RouteMenu | null = null;
+  if (route.routes?.length) {
+    // 递归查找
+    for (let i = 0; i < route.routes.length; i += 1) {
+      r = findAvailRoute(route.routes[i]);
+      if (r) break;
+    }
+  }
+  return r;
+};
+
+/** 从route集合数列表中，查找到第一个包含组件的 */
+export const useFirstAvailRoute = (routes: RouteMenu[]) => {
+  return useMemo(() => findAvailRoute(routes[0]), []);
+};

@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import { RouteMenu } from '@/types';
 
+// 配置式路由菜单
 export default [
   {
     path: '/welcome',
