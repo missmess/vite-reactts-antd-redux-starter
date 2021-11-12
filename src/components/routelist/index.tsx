@@ -15,7 +15,7 @@ const parseLeafMenus = (menus: RouteMenu[], leafMenus: RouteMenu[]) => {
   menus.forEach((r) => (r.routes?.length ? parseLeafMenus(r.routes, leafMenus) : leafMenus.push(r)));
 };
 
-/** 解析menus获取路由列表组件 */
+/** 路由列表组件，与配置式路由菜单绑定 */
 const RouteList: React.FC<{ menus: RouteMenu[] }> = ({ menus }) => {
   const [leafs, setLeafs] = useState([] as RouteMenu[]);
   // 解析出叶子menu，用来创建route

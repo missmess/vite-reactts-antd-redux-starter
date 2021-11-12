@@ -5,6 +5,7 @@ import MenuList from '@/components/menulist';
 import RouteList from '@/components/routelist';
 import menus from './menus';
 import './index.scss';
+import Breadcrumbs from '@/components/breadcrumb';
 
 const { Header, Content, Sider } = Layout;
 const menuTheme: MenuTheme = 'light';
@@ -22,6 +23,7 @@ export default () => {
           <MenuList menus={menus} theme={menuTheme} />
         </Sider>
         <Content>
+          <Breadcrumbs menus={menus} />
           <RouteList menus={menus} />
         </Content>
       </Layout>

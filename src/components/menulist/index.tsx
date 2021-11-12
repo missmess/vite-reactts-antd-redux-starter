@@ -1,7 +1,8 @@
 import { Menu, MenuTheme } from 'antd';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { RouteMenu } from '@/types';
+import useRoutesByLocation from '@/hooks/useRouteMenu';
 
 const { SubMenu } = Menu;
 
@@ -24,33 +25,14 @@ const getMenuItemList = (menus: RouteMenu[]) =>
     ),
   );
 
-/** 解析menus获取菜单列表组件 */
+/** 菜单列表组件，与配置式路由菜单绑定 */
 const MenuList: React.FC<{ menus: RouteMenu[]; theme: MenuTheme }> = ({ menus, theme }) => {
+  const parentRoutes = useRoutesByLocation(menus);
   const [openKeys, setOpenKeys] = useState([] as string[]);
-  /**
-   * 先序遍历匹配某一菜单项path等于输入的path，并将该菜单项的parent的path存入数组中
-   */
-  const findMenuPathPreOrder = useCallback((menu: RouteMenu, path: string, parentPaths: string[]) => {
-    if (menu.path === path) return true;
-    if (menu.routes?.length) {
-      for (let i = 0; i < menu.routes.length; i += 1) {
-        if (findMenuPathPreOrder(menu.routes[i], path, parentPaths)) {
-          parentPaths.push(menu.path);
-          return true;
-        }
-      }
-    }
-    return false;
-  }, []);
-  const location = useLocation();
-  // location变更时，计算需要打开的菜单项
   useEffect(() => {
-    const opend: string[] = [];
-    for (let i = 0; i < menus.length; i += 1) {
-      if (findMenuPathPreOrder(menus[i], location.pathname, opend)) break;
-    }
-    setOpenKeys(opend);
-  }, [location]);
+    setOpenKeys(parentRoutes.map((v) => v.path));
+  }, [parentRoutes]);
+  const location = useLocation();
 
   return (
     <Menu
