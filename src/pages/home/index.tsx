@@ -1,4 +1,6 @@
-import { Layout, Image, MenuTheme } from 'antd';
+import { Layout, Image, MenuTheme, Card } from 'antd';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Logo from '@/assets/img/logo.svg';
 import UserLogin from '@/components/userlogin';
 import MenuList from '@/components/menulist';
@@ -11,6 +13,13 @@ const { Header, Content, Sider } = Layout;
 const menuTheme: MenuTheme = 'light';
 
 export default () => {
+  const location = useLocation();
+  const history = useHistory();
+  useEffect(() => {
+    if (location.pathname === '/') {
+      history.push(menus[0].path || '/');
+    }
+  });
   return (
     <Layout className='home-main'>
       <Header className='home-header'>
@@ -24,7 +33,11 @@ export default () => {
         </Sider>
         <Content>
           <Breadcrumbs menus={menus} />
-          <RouteList menus={menus} />
+          <div className='home-content'>
+            <Card className='home-card'>
+              <RouteList menus={menus} />
+            </Card>
+          </div>
         </Content>
       </Layout>
     </Layout>

@@ -29,4 +29,17 @@
       }
     }
   }
+
+  .home-content {
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+    height: calc(100vh - 109px);
+    overflow: scroll;
+
+    .home-card {
+      position: relative;
+      min-height: 100%;
+    }
+  }
 }
