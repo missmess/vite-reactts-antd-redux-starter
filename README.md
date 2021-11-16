@@ -41,3 +41,16 @@ yarn dev
 *界面截图如下：*
 
 ![管理页面截图](https://raw.githubusercontent.com/missmess/vite-reactts-antd-redux-starter/master/snapshot/1.png "管理页面截图")
+
+*示例menu配置（src/pages/home/menus.tsx）*
+
+![menus.tsx](https://raw.githubusercontent.com/missmess/vite-reactts-antd-redux-starter/master/snapshot/2.png "menus.tsx")
+
+### 关于作者
+有任何问题和BUG，欢迎反馈给我，可以用以下联系方式跟我交流：
+
+* 邮箱：<tarcy3620@126.com>
+* GitHub: [@missmess](https://github.com/missmess)
+
+---
+###### CopyRight：`missmess`
