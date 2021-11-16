@@ -6,7 +6,7 @@ import UserLogin from '@/components/userlogin';
 import MenuList from '@/components/menulist';
 import RouteList from '@/components/routelist';
 import menus from './menus';
-import './index.scss';
+import './index.less';
 import Breadcrumbs from '@/components/breadcrumb';
 import { useVisitableRoutes } from '@/hooks/useRouteMenu';
 

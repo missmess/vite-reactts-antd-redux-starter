@@ -12,7 +12,7 @@
 - Eslint
 - Prettier
 - Axios
-- Sass
+- Less
 
 ## 安装
 

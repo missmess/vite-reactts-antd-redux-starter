@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RouteMenu } from '@/types';
 import { useRoutesByLocation } from '@/hooks/useRouteMenu';
-import './index.scss';
+import './index.less';
 
 /** 面包屑组件，与配置式路由菜单绑定 */
 const Breadcrumbs: React.FC<{ menus: RouteMenu[] }> = ({ menus }) => {

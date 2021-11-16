@@ -13,8 +13,9 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      scss: {
-        additionalData: '@import "./src/assets/scss/index.scss";', // 添加公共样式
+      less: {
+        additionalData: '@import "./src/assets/css/index.less";', // 添加公共样式
+        javascriptEnabled: true,
       },
     },
   },
