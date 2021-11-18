@@ -30,16 +30,21 @@
     }
   }
 
-  .home-content {
-    position: relative;
-    padding: 10px;
-    box-sizing: border-box;
-    height: calc(100vh - 109px);
-    overflow: scroll;
+  .home-content-group {
+    display: flex;
+    flex-direction: column;
 
-    .home-card {
+    .home-content {
+      flex: 1;
       position: relative;
-      min-height: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      overflow: scroll;
+
+      .home-card {
+        position: relative;
+        min-height: 100%;
+      }
     }
   }
 }

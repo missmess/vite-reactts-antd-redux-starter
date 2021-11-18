@@ -42,7 +42,7 @@ export default () => {
         >
           <MenuList menus={menus} theme={menuTheme} collapse={menuCollapse} />
         </Sider>
-        <Content>
+        <Content className='home-content-group'>
           <Breadcrumbs menus={menus} />
           <div className='home-content'>
             <Card className='home-card'>
