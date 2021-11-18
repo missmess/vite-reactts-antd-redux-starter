@@ -14,7 +14,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
-        additionalData: '@import "./src/assets/css/index.less";', // 添加公共样式
+        // 需要公共导入的less文件（每个less文件导入前执行）
+        additionalData: '@import "./src/assets/css/variable.less";',
         javascriptEnabled: true,
       },
     },
