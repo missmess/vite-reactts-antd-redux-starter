@@ -16,11 +16,13 @@
 
 ## 安装
 
-clone项目或者下载项目压缩包，然后 `yarn install`
+1. clone项目
+2. 下载项目压缩包并解压
+3. npx degit missmess/vite-reactts-antd-redux-starter (my-project-name)
 
 ## 启动
 
-在依赖包全部安装成功后运行：
+执行`yarn install`，在依赖包全部安装成功后运行：
 
 ```
 yarn dev
