@@ -19,7 +19,7 @@ module.exports = {
       },
     },
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'react-hooks'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     // 'react/destructuring-assignment': [0, 'always'],
@@ -32,6 +32,8 @@ module.exports = {
     // camelcase: 'off',
     // 'prefer-destructuring': 'warn',
     'no-unused-vars': 'warn',
+    'react-hooks/rules-of-hooks': 'error', // 检查 Hook 的规则
+    'react-hooks/exhaustive-deps': 'warn', // 检查 effect 的依赖
   },
   overrides: [
     {
