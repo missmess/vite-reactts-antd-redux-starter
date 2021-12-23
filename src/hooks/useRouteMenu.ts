@@ -37,12 +37,12 @@ export const useRoutesByLocation = (routes: RouteMenu[]) => {
       if (findRoutesByPath(routes[i], location.pathname, ps)) break;
     }
     return ps.reverse();
-  }, [location]);
+  }, [location, routes]);
 };
 
 /** 从route集合树中先序遍历，查找包含组件的路由存入visitableRoutes中 */
 const findVisitableRoute = (route: RouteMenu, visitableRoutes: RouteMenu[]) => {
-  if (route.component) {
+  if (route.component || route.path.startsWith('http://') || route.path.startsWith('https://')) {
     visitableRoutes.push(route);
   }
   if (route.routes?.length) {
@@ -64,7 +64,7 @@ export const useVisitableRoutes = (routes: RouteMenu[]) => {
     routes.forEach((v) => findVisitableRoute(v, visitableRoutes));
     // console.log('可访问的路由集', visitableRoutes);
     return visitableRoutes;
-  }, []);
+  }, [routes]);
 };
 
 /** 递归添加visibleChild */
@@ -86,5 +86,5 @@ export const useMenuVisibleRoutes = (routes: RouteMenu[]) => {
     routes.forEach((v) => addMenuVisibleRoute(v, visibleRoutes));
     // console.log('可见菜单集', visibleRoutes);
     return visibleRoutes;
-  }, []);
+  }, [routes]);
 };

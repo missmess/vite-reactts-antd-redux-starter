@@ -5,7 +5,12 @@ import { RouteMenu } from '@/types';
 import { useVisitableRoutes } from '@/hooks/useRouteMenu';
 
 /** 根据menu获取单个路由组件 */
-const getRouteItem = (menu: RouteMenu) => <Route exact path={menu.path} component={menu.component} key={menu.path} />;
+const getRouteItem = (menu: RouteMenu) => {
+  if (menu.component) {
+    return <Route exact path={menu.path} component={menu.component} key={menu.path} />;
+  }
+  return null;
+};
 
 /** 路由列表组件，与配置式路由菜单绑定 */
 const RouteList: React.FC<{ menus: RouteMenu[] }> = ({ menus }) => {

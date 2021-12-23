@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 
 export type RouteMenu = {
-  name: string;
-  path: string;
+  name: string; // 名称，展示到菜单、面包屑位置
+  path: string; // 路径，支持外部url
   component?: React.ExoticComponent;
   icon?: ReactNode | string;
   routes?: RouteMenu[];

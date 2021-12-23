@@ -5,6 +5,7 @@ import {
   CalendarOutlined,
   CloudUploadOutlined,
   DeliveredProcedureOutlined,
+  GoogleOutlined,
   HeatMapOutlined,
   IeOutlined,
   QqOutlined,
@@ -55,6 +56,11 @@ export default [
           },
         ],
       },
+      {
+        path: 'https://www.google.com/search?q=理想汽车',
+        name: '查看google',
+        icon: <GoogleOutlined />,
+      },
     ],
   },
   {
@@ -88,5 +94,10 @@ export default [
     hideInMenu: true,
     icon: <HeatMapOutlined />,
     component: React.lazy(() => import('../404')),
+  },
+  {
+    path: 'https://www.lixiang.com',
+    name: '理想官网',
+    icon: <IeOutlined />,
   },
 ] as RouteMenu[];

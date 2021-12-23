@@ -9,7 +9,11 @@ const { SubMenu } = Menu;
 /** 根据menu生成单个菜单项jsx */
 const getMenuItem = (menu: RouteMenu) => (
   <Menu.Item key={menu.path} icon={menu.icon}>
-    <Link to={menu.path}>{menu.name}</Link>
+    {menu.path.startsWith('http://') || menu.path.startsWith('https://') ? (
+      <a href={menu.path}>{menu.name}</a>
+    ) : (
+      <Link to={menu.path}>{menu.name}</Link>
+    )}
   </Menu.Item>
 );
 
