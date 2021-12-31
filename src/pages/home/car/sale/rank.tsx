@@ -7,7 +7,7 @@ export default () => {
     <div>
       <Button onClick={history.goBack}>返回</Button>
 
-      <Link to='/car/sale/win/detail'>销售冠军详情</Link>
+      <Link to='/car/sale/win/detail?id=13'>销售冠军详情</Link>
     </div>
   );
 };

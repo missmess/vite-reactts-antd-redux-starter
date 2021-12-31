@@ -10,6 +10,12 @@ export default () => {
       <Link to='/bind/android' style={{ marginLeft: '15px' }}>
         绑定安卓
       </Link>
+      <Link to='/404' style={{ marginLeft: '15px' }}>
+        跳个404
+      </Link>
+      <Link to='/500' style={{ marginLeft: '15px' }}>
+        跳个500
+      </Link>
     </div>
   );
 };
