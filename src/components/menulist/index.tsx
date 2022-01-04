@@ -78,7 +78,7 @@ const MenuList: React.FC<{ menus: RouteMenu[]; theme: MenuTheme; collapse: boole
       selectedKeys={[selectPath]}
       openKeys={openKeys}
       onOpenChange={setOpenKeys}
-      style={{ height: '100%', borderRight: 0 }}
+      style={{ height: '100%', borderRight: 0, overflow: 'scroll' }}
     >
       {getMenuItemList(visibles)}
     </Menu>
