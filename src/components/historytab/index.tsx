@@ -53,8 +53,8 @@ const HistoryTab: FC<{ menus: RouteMenu[] }> = ({ menus }) => {
   // 当前路由的包装对象，仅当路由已经配置在菜单中时才有，否则为null
   const wrappedLocation = useMemo(() => {
     // 如果存在key&它包含在路由菜单中，认为是有效的
-    if (location.key && routes.length > 0) {
-      return { ...location, name: routes[routes.length - 1].name } as Location;
+    if (routes.length > 0) {
+      return { ...location, name: routes[routes.length - 1].name, key: location.key || location.pathname } as Location;
     }
     return null;
   }, [location, routes]);
