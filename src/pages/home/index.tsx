@@ -14,7 +14,7 @@ import HistoryTab from '@/components/historytab';
 
 const { Header, Content, Sider } = Layout;
 const menuTheme: MenuTheme = 'light';
-const initNavType: any = localStorage.getItem('startter-navtype') || 'breadcrumb';
+const initNavType: any = localStorage.getItem('startter-navtype') || 'historytab';
 
 export default () => {
   const location = useLocation();
