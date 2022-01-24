@@ -1,3 +1,4 @@
+import 'antd/dist/antd.less';
 import '@/assets/css/app.less';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

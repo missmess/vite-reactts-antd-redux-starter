@@ -16,7 +16,10 @@ export default defineConfig({
       less: {
         // 需要公共导入的less文件
         // （每个less文件导入前都会执行。注意文件不能太大，不然会严重影响加载速度）
-        additionalData: '@import "./src/assets/css/variable.less";',
+        modifyVars: {
+          hack: `true; @import (reference) "${path.resolve('src/assets/css/variable.less')}";`,
+        },
+        // additionalData: '@import "./src/assets/css/variable.less";',
         javascriptEnabled: true,
       },
     },
