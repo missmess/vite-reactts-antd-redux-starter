@@ -1,9 +1,10 @@
 {
-  "name": "chargingpile-web",
-  "version": "0.0.1-beta",
+  "name": "vite-react-starter",
+  "version": "1.0.0",
   "author": "wl",
   "scripts": {
     "dev": "vite",
+    "build-dev": "tsc && vite build --mode development",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
