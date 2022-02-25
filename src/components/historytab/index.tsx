@@ -36,6 +36,7 @@ const CloseableTab: FC<{ onClose: () => void; showClose: boolean; title: string 
   );
 };
 
+/** 注意：location每次push都会生成一个新的key，所以不能通过key来判断是否是同路由，否则会陷入死循环。 */
 const isLocationSame = (a: Location, b: Location) => {
   return a.pathname === b.pathname;
 };
@@ -68,26 +69,34 @@ const HistoryTab: FC<{ menus: RouteMenu[] }> = ({ menus }) => {
   useEffect(() => {
     if (!wrappedLocation) return;
     const foundIdx = matchLocationInHistoryList(wrappedLocation, historyList);
-    // console.log(`计算历史记录列表，设置activeTab=${wrappedLocation.key}`);
+    // console.log(`计算历史记录列表，设置activeTab=${wrappedLocation.key}，historyList有${historyList.length}个`);
+
     if (foundIdx === -1) {
-      setActiveTab(wrappedLocation.key);
+      // location不在列表中，追加到末尾
       setHistoryList(historyList.concat(wrappedLocation));
     } else {
-      // location已经存在列表中，设置这个key
-      setActiveTab(historyList[foundIdx].key);
+      // location已经在列表中，替换为新值
+      const arr = [...historyList];
+      arr.splice(foundIdx, 1, wrappedLocation);
+      setHistoryList(arr);
     }
+    // 选中该location
+    setActiveTab(wrappedLocation.key);
   }, [wrappedLocation]);
 
   // activeTab变化后，判断是否需要跳转路由
   useEffect(() => {
-    // console.log('tab发生了变更，准备跳转');
+    // console.log(`tab发生了变更，准备跳转，historyList有${historyList.length}个`);
     // 历史记录里查找activeTab
     const found = historyList.find((v) => v.key === activeTab);
+    // location变更，才去push
     if (found && !isLocationSame(found, location)) {
+      // console.log(`=====跳转`);
       history.push(found);
     }
   }, [activeTab]);
 
+  /** 点击删除某一个tab */
   const clickRemove = useCallback(
     (key: string) => {
       setHistoryList((list) => {
