@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './user';
+import settingReducer from './setting';
+import idaasScopeReducer from './scope';
 // ...
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    setting: settingReducer,
+    scope: idaasScopeReducer,
   },
 });
 

@@ -1,16 +1,32 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import basicSsl from '@vitejs/plugin-basic-ssl';
+
+const ENV_DIR = './env';
+
+const htmlPlugin = (mode: string) => {
+  const env = loadEnv(mode, ENV_DIR);
+  // console.log('读取env内容:', env);
+  return {
+    name: 'html-transform',
+    transformIndexHtml(html) {
+      return html.replace(/<title>(.*?)<\/title>/, `<title>${env.VITE_APP_NAME}</title>`);
+    },
+  };
+};
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => ({
-  plugins: [react()],
+export default defineConfig((env) => ({
+  plugins: [react(), htmlPlugin(env.mode), basicSsl()],
   server: {
     open: true,
-    host: true,
-    port: 6893,
+    // host: 'dev.chehejia.com',
+    port: 8860,
+    https: true,
   },
+  envDir: ENV_DIR,
   css: {
     preprocessorOptions: {
       less: {
@@ -19,7 +35,6 @@ export default defineConfig(({ command, mode }) => ({
         modifyVars: {
           hack: `true; @import (reference) "${path.resolve('src/assets/css/variable.less')}";`,
         },
-        // additionalData: '@import "./src/assets/css/variable.less";',
         javascriptEnabled: true,
       },
     },

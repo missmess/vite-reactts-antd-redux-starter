@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
-
 interface ImportMetaEnv extends Readonly<Record<string, string | boolean | undefined>> {
-  readonly VITE_API_ROOT: string;
+  readonly VITE_APP_NAME: string;
   // 更多环境变量...
 }
 

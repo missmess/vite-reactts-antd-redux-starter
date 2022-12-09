@@ -1,89 +1,87 @@
-import { Layout, Image, MenuTheme, Card, Drawer, Row, Col, Select } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { SettingOutlined } from '@ant-design/icons';
-import Logo from '@/assets/img/logo.svg';
-import UserLogin from '@/components/userlogin';
+import { Layout } from 'antd';
+import { ReactNode, useEffect, useState } from 'react';
+import { CloseOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import MenuList from '@/components/menulist';
-import RouteList from '@/components/routelist';
-import menus from './menus';
-import './index.less';
-import { useVisitableRoutes } from '@/hooks/useRouteMenu';
+import { useCurrentRoute } from '@/hooks/useRouteMenu';
 import Breadcrumbs from '@/components/breadcrumb';
 import HistoryTab from '@/components/historytab';
+import ContentZone from '@/components/contentzone';
+import TipsBar from '@/components/tipsbar';
+import { useAppSelector } from '@/hooks/useStoreApi';
+import { selectGlobalSetting } from '@/store/setting';
+import TopBar from '@/components/topbar';
+import menus from '../menus';
+import './index.less';
 
-const { Header, Content, Sider } = Layout;
-const menuTheme: MenuTheme = 'light';
-const initNavType: any = localStorage.getItem('startter-navtype') || 'historytab';
+const { Content, Sider } = Layout;
 
 export default () => {
-  const location = useLocation();
-  const history = useHistory();
-  const visitables = useVisitableRoutes(menus);
-  useEffect(() => {
-    if (location.pathname === '/') {
-      history.push(visitables[0]?.path || '/');
-    }
-  });
+  const setting = useAppSelector(selectGlobalSetting);
+  // 取该大分类的左侧菜单树
+  const route = useCurrentRoute(menus); // 当前路由对象
   // 菜单收缩状态
-  const [menuCollapse, setMenuCollapse] = useState(false);
-  // setting drawer开关状态
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  // 导航类型：面包屑、历史标签
-  const [navType, setNavType] = useState<'breadcrumb' | 'historytab' | 'all'>(initNavType);
+  const [menuCollapse, setMenuCollapse] = useState(setting.defaultMenuCollapse);
+  // 页面顶部提示栏
+  const [contentTips, setContentTips] = useState<ReactNode>();
+  useEffect(() => {
+    if (route?.meta?.homeContentTips) {
+      setContentTips(route.meta.homeContentTips);
+    } else {
+      setContentTips(undefined);
+    }
+  }, [route]);
+
   return (
     <Layout className='home-main'>
-      <Header className='home-header'>
-        <Image src={Logo} preview={false} width={54} />
-        <span className='home-title'>理想汽车</span>
-        <span className='home-control'>
-          <SettingOutlined onClick={() => setDrawerVisible(true)} />
-        </span>
-        <UserLogin />
-      </Header>
+      {route?.meta?.pure === true || (typeof route?.meta?.pure === 'object' && route.meta.pure.topBar) ? null : (
+        <TopBar />
+      )}
       <Layout>
-        <Sider
-          width={200}
-          breakpoint='md'
-          collapsible
-          onCollapse={setMenuCollapse}
-          theme={menuTheme}
-          collapsedWidth={48}
-        >
-          <MenuList menus={menus} theme={menuTheme} collapse={menuCollapse} />
-        </Sider>
+        {!menus || // 没有菜单列表
+        !route || // 未找到路由
+        route.meta?.pure === true || // 路由申请全隐藏
+        (typeof route.meta?.pure === 'object' && route.meta.pure.menuList) ? null : ( // 路由申请隐藏菜单栏
+          <Sider
+            width={220}
+            className='home-left-sider'
+            breakpoint={setting.defaultMenuCollapse ? undefined : 'md'}
+            defaultCollapsed={menuCollapse}
+            collapsible
+            onCollapse={setMenuCollapse}
+            theme={setting.collapseTheme}
+            trigger={menuCollapse ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            collapsedWidth={64}
+          >
+            <MenuList menus={menus} theme={setting.menuTheme} collapse={menuCollapse} />
+          </Sider>
+        )}
         <Content className='home-content-group'>
-          <div className='home-content-top'>
-            {navType === 'breadcrumb' || navType === 'all' ? <Breadcrumbs menus={menus} /> : null}
-            {navType === 'historytab' || navType === 'all' ? <HistoryTab menus={menus} /> : null}
-          </div>
-          <div className='home-content'>
-            <Card className='home-card'>
-              <RouteList menus={menus} />
-            </Card>
+          {!menus || // 没有菜单列表
+          !route || // 未找到路由
+          route.meta?.pure === true || // 路由申请全隐藏
+          (typeof route.meta?.pure === 'object' && route.meta.pure.contentTop) ? null : ( // 路由申请隐藏顶部栏
+            <div
+              className='home-content-top'
+              style={route?.meta?.homeContentTopStyle ?? undefined}
+              // style={setting.navType !== 'breadcrumb' ? { backgroundColor: 'white' } : undefined}
+            >
+              {setting.navType === 'breadcrumb' || setting.navType === 'all' ? <Breadcrumbs menus={menus} /> : null}
+              {setting.navType === 'historytab' || setting.navType === 'all' ? <HistoryTab menus={menus} /> : null}
+            </div>
+          )}
+          <TipsBar
+            hidden={!contentTips}
+            style={route?.meta?.homeContentTipsStyle}
+            title={contentTips}
+            rightBtns={[
+              { label: <CloseOutlined style={{ color: '#888' }} />, key: 1, onClick: () => setContentTips(undefined) },
+            ]}
+          />
+          <div className='home-content' style={route?.meta?.homeContentStyle ?? undefined}>
+            <ContentZone menus={menus} />
           </div>
         </Content>
       </Layout>
-      <Drawer visible={drawerVisible} title='布局设置' width={340} onClose={() => setDrawerVisible(false)}>
-        <>
-          <Row justify='space-between' align='middle'>
-            <Col style={{ fontWeight: 'bold' }}>顶部导航模式</Col>
-            <Col>
-              <Select
-                value={navType}
-                onChange={(val) => {
-                  localStorage.setItem('startter-navtype', val);
-                  setNavType(val);
-                }}
-              >
-                <Select.Option value='breadcrumb'>使用面包屑</Select.Option>
-                <Select.Option value='historytab'>使用历史标签</Select.Option>
-                <Select.Option value='all'>都使用</Select.Option>
-              </Select>
-            </Col>
-          </Row>
-        </>
-      </Drawer>
     </Layout>
   );
 };

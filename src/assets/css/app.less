@@ -5,6 +5,11 @@
 // 自定义变量文件，可以覆盖antd样式
 // @import './variable.less';
 
+// 导入cfe-ui样式
+// @import './cfe-ui.less';
+// 导入自定义公共样式
+@import './custom.less';
+
 @font-face {
   font-family: Licium;
   src: url(@/assets/font/LiciumFont-Regular.TTF);
@@ -13,14 +18,14 @@
 body,
 html {
   font-family: Licium, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+    "Droid Sans", "Helvetica Neue", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
   margin: 0;
 }
 
-#root {
+#mainapp-root {
   width: 100%;
   height: 100%;
 }

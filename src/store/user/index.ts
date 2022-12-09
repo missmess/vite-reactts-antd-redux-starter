@@ -1,15 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserInfo } from '@/types';
+import { User } from '@li-idaas/authli/esm/core/token-manager';
 import type { RootState } from '..';
 
 export const userSlice = createSlice({
   name: 'user',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState: {
-    userinfo: null as UserInfo | null,
+    userinfo: null as User | null,
   },
   reducers: {
-    setUser: (state, action: PayloadAction<UserInfo | null>) => {
+    setUser: (state, action: PayloadAction<User | null>) => {
       state.userinfo = action.payload;
     },
   },

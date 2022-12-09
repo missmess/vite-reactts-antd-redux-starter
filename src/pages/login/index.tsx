@@ -1,7 +1,7 @@
 import { Form, Input, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { useAppDispatch } from '@/hooks/useStoreApi';
-import { setUser } from '@/store/user';
+import { useAppDispatch } from '../../hooks/useStoreApi';
+import { setUser } from '../../store/user';
 
 declare type FormObj = {
   username: string;
@@ -13,7 +13,7 @@ export default () => {
   const dispatch = useAppDispatch();
   const onFinish = (values: FormObj) => {
     // 登录成功设置user
-    dispatch(setUser({ userId: 1, nickname: values.username }));
+    dispatch(setUser({ openid: '1', nickname: values.username }));
     history.replace('/');
   };
 
