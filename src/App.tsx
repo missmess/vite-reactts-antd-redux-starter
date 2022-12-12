@@ -9,7 +9,6 @@ import { IDaasInfo } from './Constants';
 import { setScopes } from './store/scope';
 
 const Home = lazy(() => import('@/pages/home'));
-const Login = lazy(() => import('@/pages/login'));
 
 // @ts-ignore
 // eslint-disable-next-line no-underscore-dangle
@@ -60,7 +59,6 @@ export default () => {
     <Router>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route exact path='/login' component={Login} />
           <Route path='/' component={Home} />
         </Switch>
       </Suspense>
