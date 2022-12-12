@@ -110,7 +110,7 @@ export const useCurrentRoute = (routes: RouteMenu[]) => {
 
 /** 从route集合树中先序遍历，查找包含组件的路由存入visitableRoutes中 */
 const findVisitableRoute = (route: RouteMenu, visitableRoutes: RouteMenu[], scopes: string[]) => {
-  if (route.component || route.path.startsWith('http://') || route.path.startsWith('https://')) {
+  if (route.component || route.redirect || route.path.startsWith('http://') || route.path.startsWith('https://')) {
     // 该route不需要权限或者用户有该权限
     if (route.scope === undefined || route.scope === null || hasPermission(scopes, route.scope)) {
       visitableRoutes.push(route);

@@ -1,5 +1,5 @@
 import React, { createContext, Suspense, useMemo } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Loading from '@/components/loading';
 import { RouteMenu } from '@/types';
 import { useVisitableRoutes } from '@/hooks/useRouteMenu';
@@ -15,22 +15,28 @@ export const RouteContext = createContext({
 
 /** 根据menu获取单个路由组件 */
 const getRouteItem = (menu: RouteMenu) => {
-  // 有组件
-  if (menu.component) {
-    // string代表是特殊组件，不需要生成route
-    if (menu.component === 'externalUrl' || menu.component === 'iframeView' || menu.component === 'mircroAppView') {
-      return null;
-    }
-    let comp = menu.component;
-    if (typeof menu.component === 'string') {
-      // 如果是字符串的组件路径，将其转换为lazy组件
-      // @ts-ignore
-      comp = React.lazy(AllPageModules[`../../pages/${menu.component}`]);
-    }
-    // 处理组件路由
+  // 特殊组件，不需要生成route
+  if (menu.component === 'externalUrl' || menu.component === 'iframeView' || menu.component === 'mircroAppView') {
+    return null;
+  }
+
+  if (typeof menu.component === 'string') {
+    // 如果是字符串的组件路径，将其转换为lazy组件
     // @ts-ignore
+    const comp = React.lazy(AllPageModules[`../../pages/${menu.component}`]);
     return <Route exact path={menu.path} component={comp} key={menu.path} />;
   }
+
+  if (menu.component) {
+    // @ts-ignore
+    return <Route exact path={menu.path} component={menu.component} key={menu.path} />;
+  }
+
+  // 如果有重定向
+  if (menu.redirect) {
+    return <Redirect exact from={menu.path} key={menu.path} to={menu.redirect} />;
+  }
+
   return null;
 };
 

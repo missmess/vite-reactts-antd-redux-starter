@@ -9,6 +9,7 @@ export type RouteMenu = {
   hideInMenu?: boolean;
   meta?: SupportMetas; // 额外信息，用于组件附加的配置
   scope?: string; // 该路由需要权限
+  redirect?: string; // 要重定向的path，仅component为空时有效，不支持http(s)。访问到本路由时会重定向到该path。
 };
 
 export type SupportMetas = {
