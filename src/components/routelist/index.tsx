@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Loading from '@/components/loading';
 import { RouteMenu } from '@/types';
 import { useVisitableRoutes } from '@/hooks/useRouteMenu';
+import { hashCode } from '@/utils/common';
 /** 这是全部的pages下的页面组件。用于动态的组件加载（vite专用） */
 const AllPageModules = import.meta.glob('../../pages/*/*.tsx');
 
@@ -34,6 +35,12 @@ const getRouteItem = (menu: RouteMenu) => {
 
   // 如果有重定向
   if (menu.redirect) {
+    const isUrl = menu.redirect.startsWith('http://') || menu.redirect.startsWith('https://');
+    if (isUrl) {
+      // 如果有url的重定向地址，则跳转到iframe页面中打开
+      const hash = hashCode(menu.redirect);
+      return <Redirect exact from={menu.path} key={menu.path} to={`/iframeView/${hash}`} />;
+    }
     return <Redirect exact from={menu.path} key={menu.path} to={menu.redirect} />;
   }
 
