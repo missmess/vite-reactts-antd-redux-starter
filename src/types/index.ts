@@ -1,5 +1,10 @@
 import React, { CSSProperties, ReactElement, ReactNode } from 'react';
 
+export type User = {
+  nickname: string;
+  picture: string;
+};
+
 export type RouteMenu = {
   name: string; // 名称，展示到菜单、面包屑位置
   path: string; // 路径，可填入http(s)链接或相对路径，支持动态路由和url参数。

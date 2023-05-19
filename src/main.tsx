@@ -1,5 +1,4 @@
 import 'antd/dist/antd.less';
-import 'cfe-ui/cfe-ui.css';
 import '@/assets/css/app.less';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

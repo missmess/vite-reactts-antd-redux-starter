@@ -3,7 +3,6 @@ import { Avatar, Dropdown, Menu } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStoreApi';
 import { selectUserInfo, setUser } from '@/store/user';
-import auth from '@/utils/auth';
 import './index.less';
 
 export default () => {
@@ -14,9 +13,7 @@ export default () => {
   const login = () => {
     // history.push('/login');
   };
-  const logout = () => {
-    auth.logout(true).then(() => dispatch(setUser(null)));
-  };
+  const logout = () => {};
 
   return (
     <Dropdown

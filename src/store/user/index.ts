@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '@li-idaas/authli/esm/core/token-manager';
 import type { RootState } from '..';
+import { User } from '@/types';
 
 export const userSlice = createSlice({
   name: 'user',

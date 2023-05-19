@@ -1,5 +1,4 @@
-import { Form, Select } from 'antd';
-import { CfeRadioButton, CfeRadioButtonGroup } from 'cfe-ui';
+import { Form, Select, Radio } from 'antd';
 import { selectGlobalSetting, setGlobalSetting, Setting } from '@/store/setting';
 import { useAppDispatch, useAppSelector } from '@/hooks/useStoreApi';
 
@@ -25,22 +24,22 @@ const SettingComp = () => {
           </Select>
         </Form.Item>
         <Form.Item label='默认收缩菜单' name='defaultMenuCollapse'>
-          <CfeRadioButtonGroup>
-            <CfeRadioButton value>收缩</CfeRadioButton>
-            <CfeRadioButton value={false}>展开</CfeRadioButton>
-          </CfeRadioButtonGroup>
+          <Radio.Group>
+            <Radio.Button value>收缩</Radio.Button>
+            <Radio.Button value={false}>展开</Radio.Button>
+          </Radio.Group>
         </Form.Item>
         <Form.Item label='菜单主题色' name='menuTheme'>
-          <CfeRadioButtonGroup>
-            <CfeRadioButton value='light'>亮色</CfeRadioButton>
-            <CfeRadioButton value='dark'>暗色</CfeRadioButton>
-          </CfeRadioButtonGroup>
+          <Radio.Group>
+            <Radio.Button value='light'>亮色</Radio.Button>
+            <Radio.Button value='dark'>暗色</Radio.Button>
+          </Radio.Group>
         </Form.Item>
         <Form.Item label='收缩栏主题色' name='collapseTheme'>
-          <CfeRadioButtonGroup>
-            <CfeRadioButton value='light'>亮色</CfeRadioButton>
-            <CfeRadioButton value='dark'>暗色</CfeRadioButton>
-          </CfeRadioButtonGroup>
+          <Radio.Group>
+            <Radio.Button value='light'>亮色</Radio.Button>
+            <Radio.Button value='dark'>暗色</Radio.Button>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </>

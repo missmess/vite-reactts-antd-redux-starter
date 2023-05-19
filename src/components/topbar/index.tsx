@@ -17,7 +17,7 @@ const TopBar = () => {
     <>
       <Header className='topbar-header'>
         <Link to='/' className='topbar-logo-clickable'>
-          <img src={Logo} alt='logo' style={{ height: 18 }} />
+          <img src={Logo} alt='logo' style={{ height: 28 }} />
           <span className='topbar-title'>{import.meta.env.VITE_APP_NAME}</span>
         </Link>
         <span style={{ flex: 1 }} />
