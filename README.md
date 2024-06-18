@@ -41,15 +41,15 @@ yarn dev
 - 解决了react-router与antd组件难以融合的问题
 - 左侧菜单项与路由绑定，完美联动
 - 面包屑与路由绑定，完美联动
-- 已集成idaas（需要手动修改clientId和serviceId）
+- 历史标签卡组件
 
 *界面截图如下：*
 
-![管理页面截图](https://gitlab.chehejia.com/li-cfe/share-code/vite-reactts-antd-redux-starter/-/raw/master/snapshot/1.png "管理页面截图")
+![管理页面截图](/snapshot/1.png "管理页面截图")
 
 *示例menu配置（src/pages/home/menus.tsx）*
 
-![menus.tsx](https://gitlab.chehejia.com/li-cfe/share-code/vite-reactts-antd-redux-starter/-/raw/master/snapshot/2.png "menus.tsx")
+![menus.tsx](/snapshot/2.png "menus.tsx")
 
 ### 关于作者
 有任何问题和BUG，欢迎反馈给我，可以用以下联系方式跟我交流：
